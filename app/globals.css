@@ -1,27 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-dark-blue: hsl(209, 23%, 22%);
+  --color-very-dark-blue: hsl(207, 26%, 17%);
+  --color-very-dark-blue-text: hsl(200, 15%, 8%);
+  --color-dark-gray: hsl(0, 0%, 52%);
+  --color-very-light-gray: hsl(0, 0%, 98%);
+  --color-white: hsl(0, 0%, 100%);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Dark mode styles */
+.dark {
+  --color-text: var(--color-white);
+  --color-background: var(--color-very-dark-blue);
+  --color-element: var(--color-dark-blue);
+}
+
+/* Light mode styles */
+.light {
+  --color-text: var(--color-very-dark-blue-text);
+  --color-background: var(--color-very-light-gray);
+  --color-element: var(--color-white);
+  --color-input: var(--color-dark-gray);
 }
