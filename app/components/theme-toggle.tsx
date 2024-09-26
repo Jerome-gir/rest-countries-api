@@ -2,9 +2,21 @@
 
 import { useTheme } from "next-themes"
 import { Moon, Sun } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // When mounted on client, set mounted to true
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent rendering until the component is mounted to avoid hydration issues
+  if (!mounted) {
+    return null
+  }
 
   return (
     <button
