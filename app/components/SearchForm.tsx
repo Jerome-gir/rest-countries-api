@@ -1,45 +1,28 @@
 "use client"
 
-import { useRef } from "react"
-import { useFormStatus } from "react-dom"
-
-function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
-    >
-      {pending ? "Searching..." : "Search"}
-    </button>
-  )
-}
+import { Search } from "lucide-react" // Importer l'icône Search
 
 export default function SearchForm({
   searchAction,
 }: {
-  searchAction: (formData: FormData) => Promise<unknown>
+  searchAction: (searchTerm: string) => void
 }) {
-  const ref = useRef<HTMLFormElement>(null)
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = event.target.value
+    searchAction(searchTerm)
+  }
 
   return (
-    <form
-      ref={ref}
-      action={async formData => {
-        await searchAction(formData)
-        ref.current?.reset()
-      }}
-      className="flex mb-4"
-    >
+    <div className="flex mb-4 relative">
+      {" "}
+      <Search className="absolute left-3 top-2 text-gray-400" />
       <input
         type="text"
         name="searchTerm"
         placeholder="Search for a country..."
-        className="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-grow pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" // Ajout de 'pl-10' pour l'espacement
+        onChange={handleSearch}
       />
-      <SubmitButton />
-    </form>
+    </div>
   )
 }

@@ -10,8 +10,7 @@ export async function fetchCountries() {
   return response.json()
 }
 
-export async function searchCountries(formData: FormData) {
-  const searchTerm = formData.get("searchTerm") as string
+export async function searchCountries(searchTerm: string) {
   const response = await fetch(
     `https://restcountries.com/v3.1/name/${searchTerm}`
   )
@@ -19,7 +18,7 @@ export async function searchCountries(formData: FormData) {
     throw new Error("Failed to search countries")
   }
   const data = await response.json()
-  revalidatePath("/")
+
   return data
 }
 

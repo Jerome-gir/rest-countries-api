@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -14,11 +13,18 @@ interface Country {
 }
 
 export default function CountryList({
-  initialCountries,
+  countries, // Prop pour la liste des pays
 }: {
-  initialCountries: Country[]
+  countries: Country[] // Définition de la prop 'countries'
 }) {
-  const [countries] = useState(initialCountries)
+  // Vérifiez si la liste des pays est vide
+  if (countries.length === 0) {
+    return (
+      <p className="font-bold text-xl flex justify-center">
+        Aucun pays correspondant à votre recherche.
+      </p>
+    ) // Message d'absence de pays
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -28,7 +34,7 @@ export default function CountryList({
           key={country.cca3}
           className="block"
         >
-          <div className=" bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-2xl transition-shadow duration-300">
             <Image
               src={country.flags.png}
               alt={`Flag of ${country.name.common}`}
