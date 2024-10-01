@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { Country } from "@/types"
 
 export async function fetchCountries() {
   const response = await fetch("https://restcountries.com/v3.1/all")
@@ -8,6 +8,12 @@ export async function fetchCountries() {
     throw new Error("Failed to fetch countries")
   }
   return response.json()
+}
+
+export async function fetchRegions() {
+  const countries = await fetchCountries()
+  const regions = new Set(countries.map((country: Country) => country.region))
+  return Array.from(regions)
 }
 
 export async function searchCountries(searchTerm: string) {
@@ -22,8 +28,7 @@ export async function searchCountries(searchTerm: string) {
   return data
 }
 
-export async function filterCountriesByRegion(formData: FormData) {
-  const region = formData.get("region") as string
+export async function filterCountriesByRegion(region: string) {
   const response = await fetch(
     `https://restcountries.com/v3.1/region/${region}`
   )
@@ -31,6 +36,6 @@ export async function filterCountriesByRegion(formData: FormData) {
     throw new Error("Failed to filter countries")
   }
   const data = await response.json()
-  revalidatePath("/")
+
   return data
 }

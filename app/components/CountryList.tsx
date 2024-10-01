@@ -23,7 +23,7 @@ export default function CountryList({
       <p className="font-bold text-xl flex justify-center">
         Aucun pays correspondant à votre recherche.
       </p>
-    ) // Message d'absence de pays
+    )
   }
 
   return (
