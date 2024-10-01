@@ -8,21 +8,17 @@ import {
 import CountryList from "./components/CountryList"
 import SearchForm from "./components/SearchForm"
 import RegionFilter from "./components/RegionFilter"
-import LoadingSkeleton from "./components/LoadingSkeleton"
 import { useEffect, useState } from "react"
 
 export default function Home() {
   const [countries, setCountries] = useState([]) // État pour les pays
   const [initialCountries, setInitialCountries] = useState([]) // État pour les pays initiaux
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
       const data = await fetchCountries()
       setCountries(data)
       setInitialCountries(data) // Stocker les pays initiaux
-      setLoading(false)
     }
 
     fetchData()
@@ -60,11 +56,8 @@ export default function Home() {
         <SearchForm searchAction={handleSearch} />
         <RegionFilter filterAction={handleRegionFilter} />
       </div>
-      {loading ? (
-        <LoadingSkeleton /> // Afficher le composant de chargement
-      ) : (
-        <CountryList countries={countries} /> // Passer les pays filtrés
-      )}
+
+      <CountryList countries={countries} />
     </main>
   )
 }
