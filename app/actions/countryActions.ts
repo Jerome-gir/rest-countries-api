@@ -10,9 +10,11 @@ export async function fetchCountries() {
   return response.json()
 }
 
-export async function fetchRegions() {
+export async function fetchRegions(): Promise<string[]> {
   const countries = await fetchCountries()
-  const regions = new Set(countries.map((country: Country) => country.region))
+  const regions = new Set<string>(
+    countries.map((country: Country) => country.region)
+  )
   return Array.from(regions)
 }
 
