@@ -1,7 +1,9 @@
+// components/CountryList.tsx
 "use client"
 
 import Link from "next/link"
 import Image from "next/image"
+import LoadingSkeleton from "./LoadingSkeleton" // Importer le composant LoadingSkeleton
 
 interface Country {
   name: { common: string }
@@ -14,16 +16,23 @@ interface Country {
 
 export default function CountryList({
   countries, // Prop pour la liste des pays
+  loading, // Ajout de la prop loading
 }: {
   countries: Country[] // Définition de la prop 'countries'
+  loading: boolean // Définition de la prop 'loading'
 }) {
   // Vérifiez si la liste des pays est vide
-  if (countries.length === 0) {
+  if (countries.length === 0 && !loading) {
     return (
       <p className="font-bold text-xl flex justify-center">
         Aucun pays correspondant à votre recherche.
       </p>
     )
+  }
+
+  // Afficher le skeleton si les données sont en cours de chargement
+  if (loading) {
+    return <LoadingSkeleton />
   }
 
   return (

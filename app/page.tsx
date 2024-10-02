@@ -13,12 +13,15 @@ import { useEffect, useState } from "react"
 export default function Home() {
   const [countries, setCountries] = useState([]) // État pour les pays
   const [initialCountries, setInitialCountries] = useState([]) // État pour les pays initiaux
+  const [loading, setLoading] = useState(true) // État de chargement
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true) // Commencer le chargement
       const data = await fetchCountries()
       setCountries(data)
       setInitialCountries(data) // Stocker les pays initiaux
+      setLoading(false) // Fin du chargement
     }
 
     fetchData()
@@ -52,12 +55,10 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Countries of the World</h1>
       <div className="flex flex-col gap-12 md:flex-row md:justify-between mb-8">
-        {" "}
         <SearchForm searchAction={handleSearch} />
         <RegionFilter filterAction={handleRegionFilter} />
       </div>
-
-      <CountryList countries={countries} />
+      <CountryList countries={countries} loading={loading} />{" "}
     </main>
   )
 }
