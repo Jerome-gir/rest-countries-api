@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${nunitoSans.className} bg-very-light-gray dark:bg-very-dark-blue text-very-dark-blue-text dark:text-white`}
+        className={`${nunitoSans.className} min-h-screen bg-very-light-gray dark:bg-very-dark-blue text-very-dark-blue-text dark:text-white`}
       >
         <ThemeProvider>
           <header className="bg-white dark:bg-dark-blue shadow-md">
